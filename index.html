@@ -1,87 +1,584 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080d13" />
-  <meta name="description" content="Thirusang Sanjay — Senior Team Leader with experience in team coordination, performance monitoring, and daily operations." />
-  <title>Thirusang Sanjay | Senior Team Leader</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b12">
+  <meta name="description" content="Sanjay — Senior Team Leader specializing in team leadership, performance management and operations.">
+  <title>Sanjay | Senior Team Leader</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --bg: #080b12;
+      --panel: #111722;
+      --text: #f5f7fb;
+      --muted: #a5b0c0;
+      --accent: #69f0c1;
+      --line: rgba(255,255,255,.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Inter, Arial, sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 75% 15%, #16443a55, transparent 38%),
+        radial-gradient(ellipse at 10% 65%, #18345c55, transparent 42%),
+        var(--bg);
+      animation: ambientMove 12s ease-in-out infinite alternate;
+    }
+    @keyframes ambientMove {
+      from { background-position: 0 0, 0 0, center; }
+      to { background-position: 30px 40px, -30px -20px, center; }
+    }
+    #particles {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .container { width: min(1120px, 90%); margin: auto; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #080b12d9;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+    nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo { font-size: 1.3rem; font-weight: 800; letter-spacing: -.5px; }
+    .logo span, .accent { color: var(--accent); }
+    .nav-links { display: flex; gap: 25px; align-items: center; }
+    .nav-links a { color: var(--muted); font-size: .92rem; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .menu-toggle {
+      display: none;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 1.1rem;
+    }
+    section { padding: 95px 0; }
+    .eyebrow {
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5.7rem);
+      line-height: 1.04;
+      letter-spacing: -3px;
+      margin: 18px 0;
+    }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -1px; }
+    .muted { color: var(--muted); }
+    .hero {
+      min-height: 82vh;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 40px;
+      padding-top: 70px;
+    }
+    .hero-copy { position: relative; z-index: 1; }
+    .hero-copy > p { max-width: 590px; color: var(--muted); font-size: 1.08rem; }
+    .typed { color: var(--accent); }
+    .typed::after { content: "|"; animation: blink .8s infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 750;
+      border: 1px solid var(--line);
+      transition: transform .2s, background .2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary { background: var(--accent); color: #07110e; border-color: var(--accent); }
+    .portrait-wrap {
+      position: relative;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      min-height: 440px;
+      isolation: isolate;
+    }
+    .portrait-wrap::before {
+      content: "";
+      position: absolute;
+      width: min(390px, 90%);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, #69f0c128, #69f0c100 70%);
+      z-index: -1;
+      animation: glow 4s ease-in-out infinite alternate;
+    }
+    @keyframes glow { to { transform: scale(1.15); opacity: .6; } }
+    .portrait {
+      width: 100%;
+      max-width: 460px;
+      max-height: 560px;
+      object-fit: contain;
+      object-position: bottom;
+      filter: drop-shadow(0 18px 45px #0008);
+      animation: float 5s ease-in-out infinite;
+    }
+    @keyframes float { 50% { transform: translateY(-10px); } }
+    .section-head { max-width: 700px; margin-bottom: 36px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(145deg, #ffffff09, #ffffff03);
+      transition: transform .25s, border-color .25s, background .25s;
+    }
+    .card:hover { transform: translateY(-5px); border-color: #69f0c177; background: #69f0c10b; }
+    .card h3 { margin-bottom: 8px; }
+    .timeline { border-left: 1px solid #69f0c177; margin-left: 8px; }
+    .job { position: relative; padding: 0 0 35px 28px; }
+    .job::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 8px;
+      width: 11px;
+      height: 11px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 18px #69f0c177;
+    }
+    .job h3 { margin-bottom: 4px; }
+    .job .date { color: var(--accent); font-size: .9rem; margin-bottom: 10px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff07;
+      color: #dce4ef;
+      font-size: .9rem;
+    }
+    .contact-card {
+      padding: clamp(25px, 5vw, 55px);
+      border: 1px solid #69f0c144;
+      border-radius: 22px;
+      background: linear-gradient(120deg, #69f0c10c, #ffffff04);
+    }
+    footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: .9rem; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s, transform .7s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    #topBtn {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--accent);
+      cursor: pointer;
+      display: none;
+    }
+    #topBtn.show { display: block; }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 10px; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .portrait-wrap { min-height: 300px; }
+      .portrait { max-height: 400px; max-width: 350px; }
+      .grid { grid-template-columns: 1fr; }
+      section { padding: 70px 0; }
+      .menu-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        padding: 20px 5%;
+        background: #080b12f5;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav-links.open { display: flex; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
+  <div class="ambient" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
-  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="Sanjay home"><span class="brand-mark">S</span><span>SANJAY<span class="brand-dot">.</span></span></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-    <nav id="nav">
-      <a href="#about">About</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#education">Education</a><a class="nav-contact" href="#contact">Contact <span>↗</span></a>
+
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <a class="logo" href="#home">SANJAY<span>.</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
     </nav>
   </header>
 
   <main>
-    <section class="hero section-wrap" id="home">
-      <div class="hero-copy reveal">
-        <div class="availability"><span class="pulse"></span> OPEN TO PROFESSIONAL OPPORTUNITIES</div>
-        <p class="eyebrow">PEOPLE · PERFORMANCE · OPERATIONS</p>
-        <h1>Turning team<br><span>potential into</span><br><span class="gradient-text">performance.</span></h1>
-        <p class="hero-description">I’m <strong>Thirusang Sanjay</strong>, a Senior Team Leader with experience in team coordination, performance monitoring, task management, and day-to-day operations.</p>
-        <div class="hero-actions"><a class="button button-primary" href="#experience">Explore my journey <span>↘</span></a><a class="button button-quiet" href="Sanjay_Resume.pdf" download>Download resume <span>↓</span></a></div>
-        <div class="hero-meta"><span><i></i> Bengaluru, India</span><span>Team Leadership & Operations</span></div>
+    <section class="container hero" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow">Leadership · Team Development · Operations</div>
+        <h1>Hi, I'm<br><span class="accent">Thirusang Sanjay.</span></h1>
+        <h2 style="font-size:clamp(1.3rem,3vw,2rem)">
+          I'm a <span class="typed" id="typedRole">Senior Team Leader</span>
+        </h2>
+        <p>
+          A results-oriented edtech professional experienced in team coordination,
+          performance monitoring, daily operations, and team development.
+          Focused on building productive teams and improving workflows.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#experience">Explore Experience ↗</a>
+          <a class="btn" href="Sanjay_Resume.pdf" download>Download Resume ↓</a>
+        </div>
       </div>
-      <div class="hero-visual reveal" aria-label="Portrait of Thirusang Sanjay with animated background effects">
-        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div>
-        <div class="portrait-card"><img src="sanjay-portrait.png" alt="Sanjay, Senior Team Leader" loading="eager"><div class="portrait-label"><span class="portrait-status"></span><div><strong>THIRUSANG SANJAY</strong><small>SENIOR TEAM LEADER</small></div></div></div>
-        <div class="float-chip chip-one"><span class="chip-icon">↗</span><span><b>Team focus</b><small>People & progress</small></span></div>
-        <div class="float-chip chip-two"><span class="chip-icon">◎</span><span><b>Operations</b><small>Organised execution</small></span></div>
-        <div class="visual-caption">A PEOPLE-FIRST APPROACH TO PROGRESS</div>
-      </div>
-      <a class="scroll-cue" href="#about"><span></span> SCROLL TO EXPLORE</a>
-    </section>
 
-    <section class="section-wrap section-block" id="about">
-      <div class="section-heading reveal"><p class="eyebrow">01 / ABOUT ME</p><h2>People first.<br><span class="muted-heading">Progress always.</span></h2></div>
-      <div class="about-grid">
-        <div class="about-intro reveal"><p class="large-copy">I bring a people-focused approach to leadership, with practical experience supporting teams, coordinating daily work, and keeping progress aligned with organisational goals.</p><p>My experience across edtech environments has helped me build strengths in communication, task coordination, productivity monitoring, and problem-solving. I’m looking to bring these transferable skills to a team leadership or operations-focused opportunity.</p></div>
-        <div class="principles reveal"><article><span>01</span><div><h3>Team coordination</h3><p>Keep communication clear and work moving in the right direction.</p></div></article><article><span>02</span><div><h3>Performance focus</h3><p>Monitor progress and support consistent execution of responsibilities.</p></div></article><article><span>03</span><div><h3>Continuous improvement</h3><p>Stay adaptable, solve problems, and learn from everyday challenges.</p></div></article></div>
-      </div>
-    </section>
-
-    <section class="section-wrap section-block" id="experience">
-      <div class="section-heading reveal"><p class="eyebrow">02 / CAREER JOURNEY</p><h2>Experience built<br><span class="muted-heading">through action.</span></h2><p class="section-subtitle">A snapshot of my professional journey, based on my resume.</p></div>
-      <div class="timeline">
-        <article class="timeline-item current reveal"><div class="timeline-marker"></div><div class="timeline-date">MAY 2026 — PRESENT</div><div class="timeline-card"><div class="timeline-top"><div><p class="role-type">TEAM LEADERSHIP</p><h3>Senior Team Leader</h3><p class="company">Edu Tantr <span>·</span> Bengaluru, Karnataka</p></div><span class="current-tag">CURRENT ROLE</span></div><ul><li>Oversee team performance, daily operations, and progress toward organisational objectives.</li><li>Coordinate team activities, monitor productivity, and support effective task management.</li></ul></div></article>
-        <article class="timeline-item reveal"><div class="timeline-marker"></div><div class="timeline-date">JAN 2026 — MAY 2026</div><div class="timeline-card"><p class="role-type">COORDINATION</p><h3>Team Coordinator</h3><p class="company">Unlox <span>·</span> Bengaluru, Karnataka</p><ul><li>Coordinated team activities and communication to support a smooth workflow.</li><li>Organised task assignments, tracked progress, and maintained regular follow-ups.</li></ul></div></article>
-        <article class="timeline-item reveal"><div class="timeline-marker"></div><div class="timeline-date">AUG 2025 — JAN 2026</div><div class="timeline-card"><p class="role-type">EARLY CAREER</p><h3>Business Development Intern</h3><p class="company">Corizo <span>·</span> Bengaluru, Karnataka</p><ul><li>Gained practical exposure to workplace processes and professional responsibilities.</li><li>Developed communication, organisation, problem-solving, and time-management skills.</li></ul></div></article>
+      <div class="portrait-wrap">
+        <!-- Keep your portrait image in the repository with this exact filename. -->
+        <img class="portrait" src="sanjay-portrait-transparent.png"
+             alt="Portrait of Thirusang Sanjay"
+             onerror="this.style.display='none'">
       </div>
     </section>
 
-    <section class="section-wrap section-block" id="skills">
-      <div class="section-heading reveal"><p class="eyebrow">03 / SKILLS & CAPABILITIES</p><h2>Strengths that<br><span class="muted-heading">move work forward.</span></h2></div>
-      <div class="skills-grid">
-        <article class="skill-card reveal"><div class="skill-icon">↗</div><h3>Leadership & Operations</h3><p>Team Leadership · Task Management · Performance Monitoring · Team Coordination</p><div class="skill-line"><span style="width:92%"></span></div></article>
-        <article class="skill-card reveal"><div class="skill-icon">◎</div><h3>Communication & Growth</h3><p>Business Development · Market Research · Customer Relationship Management</p><div class="skill-line"><span style="width:85%"></span></div></article>
-        <article class="skill-card reveal"><div class="skill-icon">▦</div><h3>Digital Tools</h3><p>Microsoft Excel · Google Sheets · SQL · MySQL · HTML</p><div class="skill-line"><span style="width:78%"></span></div></article>
-        <article class="skill-card reveal"><div class="skill-icon">⌁</div><h3>Professional Approach</h3><p>Problem-solving · Adaptability · Follow-up · Time Management</p><div class="skill-line"><span style="width:88%"></span></div></article>
+    <section id="about">
+      <div class="container reveal">
+        <div class="section-head">
+          <div class="eyebrow">A little about me</div>
+          <h2>Leadership with a <span class="accent">people-first mindset.</span></h2>
+          <p class="muted">
+            I bring experience coordinating teams, organising responsibilities,
+            tracking progress, and maintaining clear communication. I enjoy
+            helping people work toward shared goals while keeping daily operations organised.
+          </p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>Team Leadership</h3>
+            <p class="muted">Coordinating team activities, supporting team development, and maintaining focus on shared objectives.</p>
+          </article>
+          <article class="card">
+            <h3>Performance & Operations</h3>
+            <p class="muted">Monitoring progress, managing tasks, and supporting smooth day-to-day workflows.</p>
+          </article>
+          <article class="card">
+            <h3>Communication</h3>
+            <p class="muted">Building effective working relationships through follow-ups, collaboration, and problem-solving.</p>
+          </article>
+        </div>
       </div>
-      <div class="language-strip reveal"><span class="eyebrow">LANGUAGES</span><div><span>Tamil</span><span>English</span><span>Malayalam</span></div></div>
     </section>
 
-    <section class="section-wrap section-block" id="education">
-      <div class="section-heading reveal"><p class="eyebrow">04 / EDUCATION</p><h2>Learning as a<br><span class="muted-heading">career foundation.</span></h2></div>
-      <div class="education-list">
-        <article class="education-card reveal"><div class="edu-year">2020 — 2023</div><div><h3>BBA CA — Computer Applications</h3><p>Bharathiyar University</p><small>CGPA: 7.12</small></div><span class="edu-arrow">↗</span></article>
-        <article class="education-card reveal"><div class="edu-year">2019 — 2020</div><div><h3>Higher Secondary — Commerce</h3><p>Holy Cross Convent Matriculation Higher Secondary School, Devarshola</p></div><span class="edu-arrow">↗</span></article>
-        <article class="education-card reveal"><div class="edu-year">FEB — JUN 2025</div><div><h3>SAP FICO Training</h3><p>G-TEC · Gudalur</p><small>Financial Accounting and Controlling; general ledger and financial transaction fundamentals.</small></div><span class="edu-arrow">↗</span></article>
+    <section id="experience">
+      <div class="container reveal">
+        <div class="section-head">
+          <div class="eyebrow">Career journey</div>
+          <h2>Professional <span class="accent">experience.</span></h2>
+          <p class="muted">My experience across team leadership, coordination, and business development.</p>
+        </div>
+        <div class="timeline">
+          <article class="job">
+            <h3>Senior Team Leader <span class="accent">· Edu Tantr</span></h3>
+            <div class="date">May 2026 – Present · Bengaluru, Karnataka</div>
+            <p class="muted">Oversee team performance and daily operations, coordinate responsibilities, monitor productivity, and support progress toward organisational objectives.</p>
+          </article>
+          <article class="job">
+            <h3>Team Coordinator <span class="accent">· Unlox</span></h3>
+            <div class="date">January 2026 – May 2026 · Bengaluru, Karnataka</div>
+            <p class="muted">Coordinated team activities, organised task assignments, tracked progress, and maintained regular follow-ups to support effective workflows.</p>
+          </article>
+          <article class="job">
+            <h3>Business Development Intern <span class="accent">· Corizo</span></h3>
+            <div class="date">August 2025 – January 2026 · Bengaluru, Karnataka</div>
+            <p class="muted">Gained practical workplace experience and developed communication, organisation, time-management, teamwork, and problem-solving skills.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="contact-section" id="contact"><div class="section-wrap contact-inner reveal"><p class="eyebrow">05 / LET’S CONNECT</p><h2>Ready for the<br><span class="gradient-text">next opportunity?</span></h2><p class="contact-copy">I’m interested in opportunities where I can contribute through team leadership, coordination, and operational support.</p><div class="contact-actions"><a class="button button-primary" href="mailto:sanzsanjay5@gmail.com">Email me <span>↗</span></a><a class="button button-quiet" href="Sanjay_Resume.pdf" download>Get my resume <span>↓</span></a></div><div class="contact-details"><a href="mailto:sanzsanjay5@gmail.com"><small>EMAIL</small>sanzsanjay5@gmail.com</a><a href="tel:+919566760829"><small>PHONE</small>+91 95667 60829</a><a href="https://www.linkedin.com/in/sanjay-s-129b14368/" target="_blank" rel="noopener noreferrer"><small>LINKEDIN</small>View my profile ↗</a><div><small>LOCATION</small>Bengaluru, India</div></div></div></section>
+    <section id="skills">
+      <div class="container reveal">
+        <div class="section-head">
+          <div class="eyebrow">What I bring</div>
+          <h2>Skills & <span class="accent">strengths.</span></h2>
+        </div>
+        <div class="card">
+          <h3>Professional skills</h3>
+          <div class="chips" style="margin-bottom:25px">
+            <span class="chip">Team Leadership</span>
+            <span class="chip">Team Coordination</span>
+            <span class="chip">Business Development</span>
+            <span class="chip">Task Management</span>
+            <span class="chip">Performance Monitoring</span>
+            <span class="chip">Market Research</span>
+            <span class="chip">Customer Relationship Management</span>
+            <span class="chip">Communication</span>
+            <span class="chip">Problem-Solving</span>
+          </div>
+          <h3>Technical skills</h3>
+          <div class="chips">
+            <span class="chip">SQL</span>
+            <span class="chip">MySQL</span>
+            <span class="chip">HTML</span>
+            <span class="chip">Microsoft Excel</span>
+            <span class="chip">Google Sheets</span>
+            <span class="chip">SAP FICO — Training</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container reveal">
+        <div class="section-head">
+          <div class="eyebrow">Education & learning</div>
+          <h2>My <span class="accent">foundation.</span></h2>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>BBA — Computer Applications</h3>
+            <p class="muted">Bharathiar University</p>
+            <p class="muted">2020 – 2023 · CGPA: 7.12</p>
+          </article>
+          <article class="card">
+            <h3>SAP FICO Training</h3>
+            <p class="muted">G-TEC</p>
+            <p class="muted">February 2025 – June 2025</p>
+            <p class="muted">Financial Accounting and Controlling fundamentals.</p>
+          </article>
+          <article class="card">
+            <h3>Higher Secondary</h3>
+            <p class="muted">Holy Cross Convent Matriculation Higher Secondary School, Devarshola</p>
+            <p class="muted">Commerce · 2019 – 2020</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container reveal">
+        <div class="contact-card">
+          <div class="eyebrow">Let's connect</div>
+          <h2>Open to the <span class="accent">next opportunity.</span></h2>
+          <p class="muted">
+            Interested in team leadership, team coordination, and operations opportunities?
+            I'd be happy to connect and discuss how my experience could contribute to your team.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="mailto:sanzsanjay5@gmail.com">Email Me ↗</a>
+            <a class="btn" href="tel:+919566760829">Call Me</a>
+            <a class="btn" href="https://www.linkedin.com/in/sanjay-s-129b14368/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          </div>
+          <p class="muted" style="margin:22px 0 0">
+            Bengaluru, Karnataka · <span class="accent">sanzsanjay5@gmail.com</span>
+          </p>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="site-footer"><a class="brand" href="#home"><span class="brand-mark">S</span><span>SANJAY<span class="brand-dot">.</span></span></a><p>Built around people, progress, and purposeful work.</p><a href="#home" class="back-top">BACK TO TOP ↑</a><small>© <span id="year"></span> Thirusang Sanjay</small></footer>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <span>© <span id="year"></span> Thirusang Sanjay</span>
+      <span>Built with purpose & continuous growth.</span>
+    </div>
+  </footer>
+
+  <button id="topBtn" aria-label="Back to top">↑</button>
+
   <script src="script.js"></script>
+  <script>
+    // Rotating role text
+    const roles = [
+      "Senior Team Leader",
+      "Team Coordinator",
+      "Operations Professional",
+      "Team Development"
+    ];
+    const roleElement = document.getElementById("typedRole");
+    let roleIndex = 0;
+    let charIndex = roles[0].length;
+    let deleting = false;
+
+    function typeRole() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const word = roles[roleIndex];
+
+      if (deleting) {
+        charIndex--;
+      } else {
+        charIndex++;
+      }
+
+      roleElement.textContent = word.slice(0, charIndex);
+
+      let delay = deleting ? 45 : 85;
+      if (!deleting && charIndex === word.length) {
+        deleting = true;
+        delay = 1400;
+      } else if (deleting && charIndex === 0) {
+        deleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        delay = 350;
+      }
+      setTimeout(typeRole, delay);
+    }
+    setTimeout(typeRole, 1600);
+
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    menuToggle.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.textContent = open ? "✕" : "☰";
+    });
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // Reveal sections on scroll
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    // Active navigation and back-to-top
+    const topBtn = document.getElementById("topBtn");
+    const sections = document.querySelectorAll("main section[id]");
+    window.addEventListener("scroll", () => {
+      topBtn.classList.toggle("show", window.scrollY > 500);
+      let current = "home";
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 150) current = section.id;
+      });
+      navLinks.querySelectorAll("a").forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+      });
+    }, { passive: true });
+    topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Animated background particles
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let width = 0, height = 0;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(65, Math.floor(width / 20));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - .5) * .35,
+        vy: (Math.random() - .5) * .35,
+        r: Math.random() * 1.6 + .5
+      }));
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach((p, i) => {
+        if (!reduceMotion) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(105,240,193,.55)";
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dx = p.x - q.x;
+          const dy = p.y - q.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 105) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.strokeStyle = `rgba(105,240,193,${.09 * (1 - distance / 105)})`;
+            ctx.stroke();
+          }
+        }
+      });
+      if (!reduceMotion) requestAnimationFrame(drawParticles);
+    }
+
+    resizeCanvas();
+    drawParticles();
+    window.addEventListener("resize", resizeCanvas);
+  </script>
 </body>
 </html>
